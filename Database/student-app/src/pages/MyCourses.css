@@ -1,0 +1,64 @@
+/* Page container */
+.mycourses-container {
+  padding: 40px;
+  max-width: 1000px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+  background: #f7f9fc;
+  min-height: 100vh;
+}
+
+/* Heading */
+.mycourses-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #222;
+  text-align: center;
+}
+
+/* Course card */
+.course-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Course title */
+.course-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+/* Duration text */
+.course-duration {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+/* Button */
+.course-button {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.course-button:hover {
+  background: #3730a3;
+}

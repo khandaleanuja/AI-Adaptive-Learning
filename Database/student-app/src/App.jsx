@@ -1,38 +1,89 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {
+
+  BrowserRouter,
+
+  Routes,
+
+  Route
+
+} from "react-router-dom";
 
 import Home from "./pages/Home";
-import Login from "./pages/login";
-import Register from "./pages/register";
+
+import Login from "./pages/Login";
+
+import Register from "./pages/Register";
+
+import AdminPage from "./pages/AdminPage";
+
+import StudentPage from "./pages/StudentPage";
+
+import MyCourses from "./pages/MyCourses";
+
+import AddLesson from "./pages/AddLesson";
+
+import ManageLessons from "./pages/ManageLessons";
+
+import AdminCoursePage from "./pages/AdminCoursePage";
 
 function App() {
+
   return (
+
     <BrowserRouter>
 
-      <nav
-        style={{
-          display: "flex",
-          gap: "20px",
-          padding: "20px",
-          background: "#222",
-        }}
-      >
-        <Link to="/" style={{ color: "white" }}>
-          Home
-        </Link>
-
-        <Link to="/login" style={{ color: "white" }}>
-          Login
-        </Link>
-
-        <Link to="/register" style={{ color: "white" }}>
-          Register
-        </Link>
-      </nav>
-
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+
+        <Route
+          path="/"
+          element={<Home />}
+        />
+
+        <Route
+          path="/login"
+          element={<Login />}
+        />
+
+        <Route
+          path="/register"
+          element={<Register />}
+        />
+
+        <Route
+          path="/admin"
+          element={<AdminPage />}
+        />
+
+        <Route
+          path="/student"
+          element={<StudentPage />}
+        />
+
+        <Route
+          path="/student/:courseId"
+          element={<StudentPage />}
+        />
+
+        <Route
+  path="/mycourses"
+  element={<MyCourses />}
+/>
+
+    <Route
+  path="/add-lesson"
+  element={<AddLesson />}
+/>
+
+<Route
+  path="/manage-lessons"
+  element={<ManageLessons />}
+/>
+
+      <Route
+  path="/admin/course/:id"
+  element={<AdminCoursePage />}
+/>
+
       </Routes>
 
     </BrowserRouter>

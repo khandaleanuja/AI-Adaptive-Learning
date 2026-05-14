@@ -1,26 +1,129 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
+
+import {
+  signInWithEmailAndPassword
+} from "firebase/auth";
+
+import {
+  doc,
+  getDoc
+} from "firebase/firestore";
+
+import {
+  useNavigate
+} from "react-router-dom";
+
+import {
+  auth,
+  db
+} from "../firebase";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  const [email, setEmail]
+    = useState("");
+
+  const [password, setPassword]
+    = useState("");
+
+  const navigate = useNavigate();
 
   const loginUser = async () => {
+
     try {
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
+
+      const userCredential =
+
+        await signInWithEmailAndPassword(
+
+          auth,
+
+          email,
+
+          password
+
+        );
+
+      const user =
+        userCredential.user;
+
+      const userRef = doc(
+        db,
+        "users",
+        user.uid
       );
 
-      alert("Login Successful");
-    } catch (error) {
+      const userSnap =
+        await getDoc(userRef);
+
+      if (userSnap.exists()) {
+
+        const userData =
+          userSnap.data();
+
+        // STORE USER
+
+        localStorage.setItem(
+
+  "user",
+
+  JSON.stringify({
+
+    uid: user.uid,
+
+    email: user.email,
+
+    role: userData.role,
+
+    name: userData.name,
+
+    disabilityType:
+      userData.disabilityType,
+
+    speechPreference:
+      userData.speechPreference,
+
+    adaptiveLevel:
+      userData.adaptiveLevel
+
+  })
+
+);
+       
+        // ROLE BASED LOGIN
+
+        if (
+          userData.role === "admin"
+        ) {
+
+          navigate("/admin");
+
+        }
+
+        else {
+
+          navigate("/");
+
+        }
+      }
+
+      else {
+
+        alert("User data not found");
+
+      }
+
+    }
+
+    catch (error) {
+
       alert(error.message);
+
     }
   };
 
   return (
+
     <div style={{ padding: "40px" }}>
 
       <h1>Login</h1>
@@ -28,7 +131,9 @@ function Login() {
       <input
         type="email"
         placeholder="Enter Email"
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) =>
+          setEmail(e.target.value)
+        }
       />
 
       <br /><br />
@@ -36,13 +141,17 @@ function Login() {
       <input
         type="password"
         placeholder="Enter Password"
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) =>
+          setPassword(e.target.value)
+        }
       />
 
       <br /><br />
 
       <button onClick={loginUser}>
+
         Login
+
       </button>
 
     </div>

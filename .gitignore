@@ -1,0 +1,24 @@
+# dependencies
+node_modules/
+
+# environment variables
+.env
+serviceAccountKey.json
+
+# python cache
+__pycache__/
+*.pyc
+
+# build output
+build/
+dist/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+
+# OS files
+.DS_Store
+
+# editor settings
+.vscode/
