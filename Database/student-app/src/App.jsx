@@ -26,6 +26,8 @@ import ManageLessons from "./pages/ManageLessons";
 
 import AdminCoursePage from "./pages/AdminCoursePage";
 
+import ProgressPage from "./pages/ProgressPage";
+
 function App() {
 
   return (
