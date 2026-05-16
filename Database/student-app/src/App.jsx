@@ -65,24 +65,30 @@ function App() {
         />
 
         <Route
-  path="/mycourses"
-  element={<MyCourses />}
-/>
+          path="/mycourses"
+          element={<MyCourses />}
+        />
 
-    <Route
-  path="/add-lesson"
-  element={<AddLesson />}
-/>
+          <Route
+          path="/add-lesson"
+          element={<AddLesson />}
+        />
 
-<Route
-  path="/manage-lessons"
-  element={<ManageLessons />}
-/>
+        <Route
+          path="/manage-lessons"
+          element={<ManageLessons />}
+        />
 
-      <Route
-  path="/admin/course/:id"
-  element={<AdminCoursePage />}
-/>
+        <Route
+          path="/admin/course/:id"
+          element={<AdminCoursePage />}
+        />
+
+         <Route
+            path="/progress"
+            element={<ProgressPage />}
+         />
+
 
       </Routes>
 
