@@ -5,8 +5,18 @@ function AdaptiveContent({ lesson }) {
   // SAMPLE AI CONDITIONS
   // Later these can come from backend/user progress
 
-  const score = 90;
-  const responseTime = 5;
+  // const score = 90;
+  // const responseTime = 5;
+
+  const user = JSON.parse(
+  localStorage.getItem("user")
+  );
+
+  const adaptiveLevel =
+  user?.adaptiveLevel || "Level 1";
+
+  const showSimple =
+  adaptiveLevel === "Level 1";
 
   // ADAPTIVE LOGIC
 

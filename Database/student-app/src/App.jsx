@@ -31,6 +31,8 @@ import Navbar from "./pages/navbar";
 import AboutPage from "./pages/About";
 
 
+import ProgressPage from "./pages/ProgressPage";
+
 function App() {
 
   return (
@@ -74,6 +76,7 @@ function App() {
         
 
         <Route
+
   path="/mycourses"
   element={<MyCourses />}
 />
@@ -92,6 +95,8 @@ function App() {
   path="/admin/course/:id"
   element={<AdminCoursePage />}
 />
+
+
 
       </Routes>
 <Navbar/>
