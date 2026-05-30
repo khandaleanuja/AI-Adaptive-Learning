@@ -25,11 +25,15 @@ import AddLesson from "./pages/AddLesson";
 import ManageLessons from "./pages/ManageLessons";
 
 import AdminCoursePage from "./pages/AdminCoursePage";
+import VoiceAssistant
+from "./components/VoiceAssistant";
+import Navbar from "./pages/navbar";
+import AboutPage from "./pages/About";
+
 
 function App() {
 
   return (
-
     <BrowserRouter>
 
       <Routes>
@@ -37,6 +41,10 @@ function App() {
         <Route
           path="/"
           element={<Home />}
+        />
+        <Route
+          path="/about"
+          element={<AboutPage />}
         />
 
         <Route
@@ -63,6 +71,7 @@ function App() {
           path="/student/:courseId"
           element={<StudentPage />}
         />
+        
 
         <Route
   path="/mycourses"
@@ -70,12 +79,12 @@ function App() {
 />
 
     <Route
-  path="/add-lesson"
+  path="/addlesson"
   element={<AddLesson />}
 />
 
 <Route
-  path="/manage-lessons"
+  path="/managelessons"
   element={<ManageLessons />}
 />
 
@@ -85,6 +94,7 @@ function App() {
 />
 
       </Routes>
+<Navbar/>
 
     </BrowserRouter>
   );

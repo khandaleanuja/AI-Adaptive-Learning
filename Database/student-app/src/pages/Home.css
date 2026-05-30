@@ -1,124 +1,232 @@
+/* ================= HOME PAGE ================= */
+
 .home {
-
-  padding: 30px;
-
-  background-color: #f5f5f5;
+  padding-top: 70px;
+  padding-left: 20px;
+  padding-right: 20px;
 
   min-height: 100vh;
+  background: #ffffff;
+  color: #111827;
+  font-family: system-ui, sans-serif;
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
 
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  z-index: 1000;
 
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
 
-  background: #222;
-
+  background: #38bdf8;
   color: white;
 
-  padding: 20px;
+  padding: 12px 20px;
+  box-sizing: border-box;
 
-  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
+/* navbar inner group */
+.navbar div {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* navbar buttons */
 .navbar button {
+  padding: 8px 12px;
+  font-size: 14px;
 
-  margin-left: 10px;
+  background: transparent;
+  border: 1px solid white;
+  border-radius: 8px;
 
-  padding: 10px 15px;
-
+  color: white;
   cursor: pointer;
+
+  white-space: nowrap;
+  transition: 0.3s ease;
 }
 
-/* DASHBOARD */
+.navbar button:hover {
+  background: white;
+  color: #38bdf8;
+  opacity: 0.95;
+}
+
+/* ================= DASHBOARD ================= */
 
 .dashboard {
-
   background: white;
-
   padding: 25px;
-
   margin-top: 20px;
-
   border-radius: 10px;
 
   box-shadow: 0px 0px 10px #ccc;
 }
 
-/* TITLE */
+/* ================= TITLE ================= */
 
 .main-title {
-
   text-align: center;
+  margin: 40px 0;
 
-  margin-top: 40px;
-
-  margin-bottom: 40px;
+  font-size: 24px;
+  font-weight: 600;
 }
 
-/* COURSES */
+/* ================= COURSE ROW ================= */
 
 .course-container {
-
   display: flex;
-
-  flex-wrap: wrap;
-
-  gap: 30px;
+  flex-direction: row;
+  flex-wrap: nowrap;
 
   justify-content: center;
-}
+  gap: 30px;
 
-.course-card {
-
-  width: 350px;
-
-  background: white;
-
+  overflow-x: auto;
   padding: 30px;
 
-  border-radius: 10px;
+  scroll-behavior: smooth;
+}
+
+/* ================= COURSE CARD ================= */
+
+.course-card {
+  flex: 0 0 360px;
+
+  background: #f8fafc;
+  padding: 25px;
+
+  border-radius: 16px;
 
   text-align: center;
 
-  box-shadow: 0px 0px 10px #ccc;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.10);
+
+  transition: 0.3s ease;
+
+  border: 1px solid #e2e8f0;
 }
 
+.course-card:hover {
+  transform: translateY(-8px);
+
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.18);
+
+  border-color: #38bdf8;
+}
+
+/* ================= COURSE BUTTON ================= */
+
 .course-card button {
+  margin-top: 15px;
+  padding: 10px 16px;
 
-  margin-top: 20px;
-
-  padding: 10px 20px;
-
-  cursor: pointer;
-
-  background: royalblue;
-
+  background: #38bdf8;
   color: white;
 
   border: none;
+  border-radius: 10px;
 
-  border-radius: 5px;
+  cursor: pointer;
+
+  transition: 0.3s ease;
 }
 
-/* ADMIN PANEL */
+.course-card button:hover {
+  background: #0ea5e9;
+  transform: scale(1.05);
+}
+
+/* ================= ADMIN PANEL ================= */
 
 .admin-panel {
-
   margin-top: 40px;
-
   padding: 30px;
 
   background: white;
-
   border-radius: 10px;
 
   text-align: center;
 
   box-shadow: 0px 0px 10px #ccc;
+
+}
+
+.hero-section {
+  text-align: center;
+  padding: 100px 30px;
+  background: linear-gradient(
+    135deg,
+    #4facfe,
+    #6a5af9
+  );
+  color: white;
+  border-radius: 0 0 50px 50px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-badge {
+  background: rgba(255,255,255,0.2);
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+
+.hero-section h1 {
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  line-height: 1.2;
+  margin: 20px auto;
+  max-width: 1000px;
+  font-weight: 700;
+}
+
+.hero-section h1 span {
+  color: #ffe082;
+}
+
+.hero-section p {
+  max-width: 700px;
+  margin: auto;
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+.hero-buttons {
+  margin-top: 30px;
+}
+
+.hero-buttons button {
+  margin: 10px;
+  padding: 14px 30px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+  .hero-section {
+    padding: 70px 20px;
+  }
+
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-section p {
+    font-size: 1rem;
+  }
+
 }
