@@ -21,15 +21,25 @@ import SearchBar from "../components/SearchBar";
 
 function StudentPage() {
 
-  const { courseId } = useParams();
+  const { courseId } =
+    useParams();
 
-  const navigate = useNavigate();
+  const navigate =
+    useNavigate();
 
-  const [userData, setUserData]
+  const [userData,
+  setUserData]
+
     = useState(null);
 
-  const [search, setSearch]
+  const [search,
+  setSearch]
+
     = useState("");
+
+  // -----------------------------
+  // FETCH USER
+  // -----------------------------
 
   useEffect(() => {
 
@@ -37,16 +47,29 @@ function StudentPage() {
 
   }, []);
 
+  // -----------------------------
+  // VOICE COMMANDS
+  // -----------------------------
+
+
   // ---------------- FETCH USER ----------------
-  const fetchUser = async () => {
+
+  const fetchUser =
+    async () => {
 
     try {
 
-      const storedUser = JSON.parse(
-        localStorage.getItem("user")
-      );
+      const storedUser =
+        JSON.parse(
+
+          localStorage.getItem(
+            "user"
+          )
+
+        );
 
       // NOT LOGGED IN
+
       if (!storedUser) {
 
         navigate("/login");
@@ -55,9 +78,11 @@ function StudentPage() {
       }
 
       const userRef = doc(
+
         db,
         "users",
         storedUser.uid
+
       );
 
       const userSnap =
@@ -69,20 +94,44 @@ function StudentPage() {
           userSnap.data();
 
         // CHECK REGISTERED COURSE
-        const user = JSON.parse(localStorage.getItem("user"));
 
-const isAdmin =
-  user?.role?.toLowerCase() === "admin";
+        const user =
+          JSON.parse(
 
-const allowed =
-  data.registeredCourses?.includes(courseId);
+            localStorage.getItem(
+              "user"
+            )
 
-// ADMIN CAN ACCESS EVERYTHING
-if (!allowed && !isAdmin) {
-  alert("Not registered for this course");
-  navigate("/");
-  return;
-}
+          );
+
+        const isAdmin =
+
+          user?.role
+            ?.toLowerCase() ===
+          "admin";
+
+        const allowed =
+
+          data.registeredCourses
+            ?.includes(
+              courseId
+            );
+
+        // ADMIN CAN ACCESS EVERYTHING
+
+        if (
+          !allowed &&
+          !isAdmin
+        ) {
+
+          alert(
+            "Not registered for this course"
+          );
+
+          navigate("/");
+
+          return;
+        }
 
         setUserData(data);
 
@@ -95,6 +144,7 @@ if (!allowed && !isAdmin) {
       console.log(error);
 
     }
+
   };
 
   return (

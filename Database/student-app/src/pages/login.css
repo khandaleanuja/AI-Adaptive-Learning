@@ -1,0 +1,47 @@
+.login-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: white;
+  font-family: system-ui, sans-serif;
+}
+
+.login-card {
+  width: 350px;
+
+  background: #f8fafc;
+
+  padding: 30px;
+
+  border-radius: 16px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+  text-align: center;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 12px;
+
+  margin-bottom: 10px;
+
+  border-radius: 10px;
+
+  border: 1px solid #cbd5e1;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 12px;
+
+  background: #38bdf8;
+  color: white;
+
+  border: none;
+  border-radius: 10px;
+
+  cursor: pointer;
+}
