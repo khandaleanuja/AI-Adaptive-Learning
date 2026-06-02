@@ -25,6 +25,7 @@ import AddLesson from "./pages/AddLesson";
 import ManageLessons from "./pages/ManageLessons";
 
 import AdminCoursePage from "./pages/AdminCoursePage";
+import Quiz from "./pages/quiz";
 import VoiceAssistant
 from "./components/VoiceAssistant";
 import Navbar from "./pages/navbar";
@@ -57,6 +58,11 @@ function App() {
         <Route
           path="/register"
           element={<Register />}
+        />
+
+                <Route
+          path="/quiz/:lessonId"
+          element={<Quiz />}
         />
 
         <Route
@@ -95,6 +101,7 @@ function App() {
   path="/admin/course/:id"
   element={<AdminCoursePage />}
 />
+
 
 
 

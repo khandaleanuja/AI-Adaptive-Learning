@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   collection,
   getDocs,
@@ -14,6 +15,7 @@ function LessonList({ role, courseId, search, category }) {
   const [allLessons, setAllLessons] = useState([]);
   const [currentLesson, setCurrentLesson] = useState(null);
   const [isListening, setIsListening] = useState(false); // ✅ FIX ADDED
+  const navigate = useNavigate();
 
   const recognitionRef = useRef(null);
   const lessonsRef = useRef([]);
@@ -176,6 +178,37 @@ function LessonList({ role, courseId, search, category }) {
         playLesson(currentIndexRef.current + 1);
         return;
       }
+
+
+      // START QUIZ
+if (
+  command.includes("start quiz") ||
+  command.includes("go to quiz") ||
+  command.includes("open quiz") ||
+  command.includes("quiz page")
+) {
+
+  if (currentLesson) {
+
+    speak("Opening quiz page");
+
+    setTimeout(() => {
+
+      window.location.href =
+        `/quiz/${currentLesson.id}`;
+
+    }, 1500);
+
+  } else {
+
+    speak(
+      "Please start a lesson first"
+    );
+
+  }
+
+  return;
+}
 
       // LISTEN
       if (command.includes("listen")) {

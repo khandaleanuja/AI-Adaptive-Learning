@@ -190,6 +190,26 @@ const [showTextBox, setShowTextBox] = useState(false);
       ) {
         navigate("/");
       }
+
+    if (
+  command.includes("quiz") ||
+  command.includes("start quiz") ||
+  command.includes("open quiz") ||
+  command.includes("go to quiz")
+) {
+
+  const speech =
+    new SpeechSynthesisUtterance(
+      "Opening quiz page"
+    );
+
+  window.speechSynthesis.speak(
+    speech
+  );
+
+  navigate(`/quiz/${courseId}/${lessonId}`);
+  console.log(courseId);
+}
       if (
   command.includes("enable voice")
 ) {
@@ -201,6 +221,8 @@ if (
 ) {
   disableVoice();
 }
+
+
 
     };
 
@@ -289,6 +311,7 @@ if (
   const logoutUser = () => {
 
     localStorage.removeItem("user");
+    localStorage.removeItem("voiceChoice");
 
     setUser(null);
     setUserData(null);
