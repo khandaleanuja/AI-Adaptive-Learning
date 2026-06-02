@@ -85,6 +85,7 @@ import {
   useEffect,
   useState
 } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { db } from "../firebase";
 
@@ -103,6 +104,7 @@ function LessonCard({ lesson }) {
 
   const [score, setScore]
     = useState(0);
+  const navigate = useNavigate();
 
   // ------------------------------------
   // LOAD EXISTING PROGRESS
@@ -260,100 +262,14 @@ function LessonCard({ lesson }) {
   // START LESSON
   // ------------------------------------
 
-  const startQuiz = async () => {
 
-    const user = JSON.parse(
-      localStorage.getItem("user")
-    );
 
-    if (!user?.uid) return;
 
-    const progressId =
-      `${user.uid}_${lesson.id}`;
+  
+  const startQuiz = () => {
 
-    const progressRef = doc(
-      db,
-      "progress",
-      progressId
-    );
-
-    // RANDOM SCORE
-
-    const generatedScore =
-      Math.floor(
-        Math.random() * 100
-      );
-
-    setScore(generatedScore);
-
-    let updatedDifficulty =
-      difficulty;
-
-    let updatedMode = mode;
-
-    // HIGH SCORE
-
-    if (generatedScore >= 80) {
-
-      updatedDifficulty =
-        difficulty + 1;
-
-      updatedMode = "Hard";
-    }
-
-    // LOW SCORE
-
-    else if (
-      generatedScore < 40
-    ) {
-
-      updatedDifficulty = 1;
-
-      updatedMode =
-        "Simplified";
-    }
-
-    setDifficulty(
-      updatedDifficulty
-    );
-
-    setMode(updatedMode);
-
-    // SAVE PROGRESS
-
-    await setDoc(
-      progressRef,
-      {
-        userId: user.uid,
-        lessonId: lesson.id,
-        score: generatedScore,
-        difficultyLevel:
-          updatedDifficulty,
-        mode: updatedMode
-      },
-      { merge: true }
-    );
-
-    // UPDATE USER LEVEL
-
-    const userRef = doc(
-      db,
-      "users",
-      user.uid
-    );
-
-    await updateDoc(
-      userRef,
-      {
-        adaptiveLevel:
-          `Level ${updatedDifficulty}`
-      }
-    );
-
-    alert(
-      `Score: ${generatedScore}`
-    );
-  };
+  navigate(`/quiz/${lesson.id}`);
+};
 
   return (
 
