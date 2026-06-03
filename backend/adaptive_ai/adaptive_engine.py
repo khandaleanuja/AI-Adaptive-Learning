@@ -1,5 +1,5 @@
 def adaptive_learning(
-    score,
+    percentage,
     response_time,
     watch_count,
     current_level
@@ -33,7 +33,7 @@ def adaptive_learning(
     # VERY GOOD PERFORMANCE
     # ------------------------------------
 
-    if score >= 80 and response_time <= 5:
+    if percentage >= 80 and response_time <= 5:
 
         if current_level < 3:
             current_level += 1
@@ -52,7 +52,7 @@ def adaptive_learning(
     # AVERAGE PERFORMANCE
     # ------------------------------------
 
-    elif score >= 50:
+    elif percentage >= 50:
 
         result["adaptiveLevel"] = current_level
 
