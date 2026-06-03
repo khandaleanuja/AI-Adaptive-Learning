@@ -14,10 +14,17 @@ progress_bp = Blueprint(
 progress_bp.route(
     "/progress/save",
     methods=["POST"]
-)(save_progress)
+)
+
+def save_progress_route():
+    return save_progress()
+
 
 # GET PROGRESS
 progress_bp.route(
     "/progress/<user_id>",
     methods=["GET"]
-)(get_progress)
+)
+
+def get_progress_route(user_id):
+    return get_progress(user_id)

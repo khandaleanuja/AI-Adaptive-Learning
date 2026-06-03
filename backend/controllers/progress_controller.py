@@ -10,15 +10,23 @@ def save_progress():
 
         data = request.json
 
+        print("Received Data:", data)
+
         user_id = data["userId"]
 
         lesson_id = data["lessonId"]
 
         score = data["score"]
 
+        percentage = int(data["percentage"])
+
         response_time = data["responseTime"]
 
         watch_count = data["videoWatchCount"]
+
+
+        print("Score:", score)
+        print("Percentage:", percentage)
 
         # ------------------------------------
         # GET CURRENT USER LEVEL
@@ -26,6 +34,11 @@ def save_progress():
 
         user_doc = db.collection("users") \
             .document(user_id).get()
+        
+        if not user_doc.exists:
+            return jsonify({
+                "error": "User not found"
+            }), 404
 
         user_data = user_doc.to_dict()
 
@@ -42,8 +55,11 @@ def save_progress():
         elif current_level == "Level 2":
             current_level = 2
 
-        else:
+        elif current_level == "Level 3":
             current_level = 3
+
+        else:
+            current_level = 1
 
         # ------------------------------------
         # AI ADAPTATION
@@ -51,7 +67,7 @@ def save_progress():
 
         adaptation = adaptive_learning(
 
-            score,
+            percentage,
 
             response_time,
 
@@ -65,13 +81,18 @@ def save_progress():
         # SAVE PROGRESS
         # ------------------------------------
 
-        db.collection("progress").add({
+
+        progress_data = {
 
             "userId": user_id,
 
             "lessonId": lesson_id,
 
+            # original correct answers
             "score": score,
+
+            # percentage
+            "percentage": percentage,
 
             "responseTime": response_time,
 
@@ -86,10 +107,28 @@ def save_progress():
             "contentMode":
                 adaptation["contentMode"],
 
+            "recommendation":
+                adaptation["recommendation"],
+
             "completedAt":
                 datetime.utcnow()
 
-        })
+        }
+
+        print("SAVING TO FIRESTORE")
+        print(progress_data)
+
+
+        # ----------------------------
+        # SAVE FIRESTORE
+        # ----------------------------
+
+        doc_ref = db.collection("progress").add(
+            progress_data
+        )
+
+        print("Firestore Saved")
+        print("Document ID:", doc_ref[1].id)
 
         # ------------------------------------
         # UPDATE USER LEVEL
@@ -106,13 +145,47 @@ def save_progress():
 
         return jsonify({
 
-            "message":
-                "Progress Saved",
+             "message":
+                "Progress Saved Successfully",
+
+            "savedData":
+                progress_data,
 
             "adaptation":
                 adaptation
 
-        })
+        }),200
+
+    except Exception as e:
+
+        return jsonify({
+            "error": str(e)
+        }), 500
+    
+
+def get_progress(user_id):
+
+    try:
+
+        docs = db.collection(
+            "progress"
+        ).where(
+            "userId",
+            "==",
+            user_id
+        ).stream()
+
+        progress_list = []
+
+        for doc in docs:
+
+            item = doc.to_dict()
+
+            item["id"] = doc.id
+
+            progress_list.append(item)
+
+        return jsonify(progress_list)
 
     except Exception as e:
 

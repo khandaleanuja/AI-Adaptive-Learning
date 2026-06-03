@@ -34,6 +34,13 @@ function Quiz() {
   const [showResult, setShowResult] =
     useState(false);
 
+  
+  const [finalScore, setFinalScore] =
+  useState(0);
+
+  const [finalPercentage, setFinalPercentage] =
+  useState(0);
+
   // Speak Question + Options
   useEffect(() => {
 
@@ -169,19 +176,24 @@ function Quiz() {
 
     else {
 
-      setShowResult(true);
+      let totalScore = updatedScore;
 
-      const percentage =
-        Math.round(
-          (updatedScore /
-            questions.length) * 100
-        );
+        const percentage =
+          Math.round(
+            (totalScore / questions.length) * 100
+          );
+
+        setFinalScore(totalScore);
+
+        setFinalPercentage(percentage);
+
+      setShowResult(true);
 
       const speech =
         new SpeechSynthesisUtterance(
           `Quiz completed.
            Your score is
-           ${updatedScore}
+           ${totalScore}
            out of
            ${questions.length}.
            Your percentage is
@@ -192,11 +204,74 @@ function Quiz() {
     }
   };
 
+
+      const saveScore = async () => {
+
+      const percentage = finalPercentage;
+
+      const payload = {
+
+        userId:
+          localStorage.getItem("userId"),
+
+        lessonId: "lesson1",
+
+        score: finalScore,
+        
+        percentage: Math.round(
+        (finalScore / questions.length) * 100
+      ),
+
+
+        responseTime: 4,
+
+        videoWatchCount: 1
+
+      };
+
+      console.log("Sending:", payload);
+
+      try {
+
+        const response = await fetch(
+          "http://localhost:5000/progress/save",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+            body: JSON.stringify(payload)
+          }
+        );
+
+        const data =
+          await response.json();
+
+        console.log(data);
+
+        alert(
+          "Score saved successfully!"
+        );
+
+      } catch(error) {
+
+        console.log(error);
+
+        alert(
+          "Error saving score"
+        );
+      }
+    };
+
+
+
+
   if (showResult) {
 
     const percentage =
       Math.round(
-        (score / questions.length) * 100
+        (finalScore / questions.length) * 100
       );
 
     return (
@@ -210,30 +285,18 @@ function Quiz() {
           </h1>
 
           <h2>
-            Score:
-            {" "}
-            {score}
-            {" / "}
-            {questions.length}
+            Score : {finalPercentage}
           </h2>
 
-          <p>
-            Percentage:
-            {" "}
-            {percentage}%
-          </p>
+          <h2>
+            Correct Answers : {finalScore} / {questions.length}
+          </h2>
 
           <button
             className="option-btn"
-            onClick={() => {
-
-              setCurrentQuestion(0);
-              setScore(0);
-              setShowResult(false);
-
-            }}
+            onClick={saveScore}
           >
-            Restart Quiz
+            Save Score
           </button>
 
         </div>
