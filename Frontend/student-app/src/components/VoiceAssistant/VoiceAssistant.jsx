@@ -139,7 +139,10 @@ function VoiceAssistant({
 
       setShowPopup(true);
 
-      speakMessage();
+  //     speakResponse(
+  //   "We noticed you may need help. Press one to enable voice assistance or press two to continue normally."
+  // );
+      speakResponse();
 
     }
 

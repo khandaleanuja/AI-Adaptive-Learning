@@ -13,11 +13,10 @@ import {
   useParams
 } from "react-router-dom";
 
-import { db } from "../firebase";
+import { db } from "../../firebase";
+import LessonList from "../Lessons/LessonList";
 
-import LessonList from "../components/LessonList";
-
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../Lessons/SearchBar";
 
 function StudentPage() {
 

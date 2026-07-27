@@ -7,7 +7,7 @@ import {
   where
 } from "firebase/firestore";
 
-import { db } from "../firebase";
+import { db } from "../../firebase";
 import LessonCard from "./LessonCard";
 
 function LessonList({ role, courseId, search, category }) {

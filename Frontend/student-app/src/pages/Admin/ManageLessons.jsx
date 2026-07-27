@@ -11,8 +11,7 @@ import {
   updateDoc
 } from "firebase/firestore";
 
-import { db } from "../firebase";
-
+import { db } from "../../firebase";
 function ManageLessons() {
 
   const [lessons, setLessons]

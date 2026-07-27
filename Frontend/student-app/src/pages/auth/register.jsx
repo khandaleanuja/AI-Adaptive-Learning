@@ -13,11 +13,7 @@ import {
   useNavigate
 } from "react-router-dom";
 
-import {
-  auth,
-  db
-} from "../firebase";
-
+import { db, auth } from "../../firebase";
 function Register() {
 
   const [name, setName] = useState("");
