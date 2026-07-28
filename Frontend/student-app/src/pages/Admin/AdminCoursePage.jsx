@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
-import LessonList from "../components/LessonList";
-
+import LessonList from "../Lessons/LessonList";
 function AdminCoursePage() {
 
   const { id } = useParams();

@@ -139,7 +139,10 @@ function VoiceAssistant({
 
       setShowPopup(true);
 
-      speakMessage();
+  //     speakResponse(
+  //   "We noticed you may need help. Press one to enable voice assistance or press two to continue normally."
+  // );
+      speakResponse();
 
     }
 
@@ -412,6 +415,8 @@ function VoiceAssistant({
   const enableVoice =
     async () => {
 
+      localStorage.setItem("accessibilityMode", "blind");
+
     clearInterval(
       timerRef.current
     );
@@ -448,13 +453,27 @@ function VoiceAssistant({
   // CONTINUE NORMAL MODE
   // ---------------------------------
 
-  const continueNormal = () => {
+  const enableDeafMode = () => {
 
-    setShowPopup(false);
+  // Stop any voice
+  window.speechSynthesis.cancel();
 
-    setInactiveTime(0);
+  if (recognitionRef.current) {
+    recognitionRef.current.stop();
+  }
 
-  };
+  // Save accessibility mode
+  localStorage.setItem("accessibilityMode", "deaf");
+
+  setVoiceModeEnabled(false);
+  setShowPopup(false);
+  setInactiveTime(0);
+
+  alert("Deaf Mode Enabled");
+
+  // Optional:
+  // navigate("/lesson");
+};
 
   // ---------------------------------
   // CLEANUP
@@ -549,7 +568,7 @@ function VoiceAssistant({
 
             <button
 
-              onClick={continueNormal}
+              onClick={enableDeafMode}
 
               style={{
 

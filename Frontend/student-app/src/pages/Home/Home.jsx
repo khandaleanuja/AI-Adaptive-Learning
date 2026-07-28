@@ -11,8 +11,7 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import { db } from "../firebase";
-
+import { db } from "../../firebase";
 import "./Home.css";
 
 function Home() {

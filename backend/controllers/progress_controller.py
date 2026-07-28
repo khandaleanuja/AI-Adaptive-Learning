@@ -118,17 +118,17 @@ def save_progress():
         print("SAVING TO FIRESTORE")
         print(progress_data)
 
+        progress_id = f"{user_id}_{lesson_id}"
 
-        # ----------------------------
-        # SAVE FIRESTORE
-        # ----------------------------
-
-        doc_ref = db.collection("progress").add(
-            progress_data
+        doc_ref = db.collection("progress").document(
+            progress_id
         )
 
+        doc_ref.set(progress_data)
+        
+
         print("Firestore Saved")
-        print("Document ID:", doc_ref[1].id)
+        print("Document ID:", progress_id)
 
         # ------------------------------------
         # UPDATE USER LEVEL

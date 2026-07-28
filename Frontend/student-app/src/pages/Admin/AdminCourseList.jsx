@@ -10,7 +10,7 @@ import {
 import { db } from "../firebase";
 
 import { useNavigate } from "react-router-dom";
-
+// import LessonList from "../lessons/LessonList";
 function AdminCourseList() {
 
   const [courses, setCourses] = useState([]);
