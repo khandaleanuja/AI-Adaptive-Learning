@@ -415,8 +415,8 @@ function VoiceAssistant({
   const enableVoice =
     async () => {
 
-      localStorage.setItem("accessibilityMode", "blind");
 
+ main
     clearInterval(
       timerRef.current
     );
@@ -453,27 +453,13 @@ function VoiceAssistant({
   // CONTINUE NORMAL MODE
   // ---------------------------------
 
-  const enableDeafMode = () => {
+  const continueNormal = () => {
 
-  // Stop any voice
-  window.speechSynthesis.cancel();
+    setShowPopup(false);
 
-  if (recognitionRef.current) {
-    recognitionRef.current.stop();
-  }
+    setInactiveTime(0);
 
-  // Save accessibility mode
-  localStorage.setItem("accessibilityMode", "deaf");
-
-  setVoiceModeEnabled(false);
-  setShowPopup(false);
-  setInactiveTime(0);
-
-  alert("Deaf Mode Enabled");
-
-  // Optional:
-  // navigate("/lesson");
-};
+  };
 
   // ---------------------------------
   // CLEANUP
@@ -568,7 +554,7 @@ function VoiceAssistant({
 
             <button
 
-              onClick={enableDeafMode}
+              onClick={continueNormal}
 
               style={{
 

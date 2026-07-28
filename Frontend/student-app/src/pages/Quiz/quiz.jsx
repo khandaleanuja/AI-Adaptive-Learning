@@ -8,6 +8,8 @@ function Quiz() {
   console.log("Lesson ID from URL:", lessonId);
 
 
+function Quiz() {
+
   const questions = [
     {
       question: "Java is?",
@@ -226,6 +228,28 @@ function Quiz() {
         percentage: finalPercentage,
         responseTime: 4,
         videoWatchCount: 1
+      const saveScore = async () => {
+
+      const percentage = finalPercentage;
+
+      const payload = {
+
+        userId:
+          localStorage.getItem("userId"),
+
+        lessonId: "lesson1",
+
+        score: finalScore,
+        
+        percentage: Math.round(
+        (finalScore / questions.length) * 100
+      ),
+
+
+        responseTime: 4,
+
+        videoWatchCount: 1
+
       };
 
       console.log("Sending:", payload);
