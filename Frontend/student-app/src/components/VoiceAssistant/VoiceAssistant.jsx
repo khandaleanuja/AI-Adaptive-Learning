@@ -415,6 +415,8 @@ function VoiceAssistant({
   const enableVoice =
     async () => {
 
+
+ main
     clearInterval(
       timerRef.current
     );

@@ -91,6 +91,15 @@ import { db } from "../../firebase";
 
 function LessonCard({ lesson }) {
 
+  const [watchCount, setWatchCount]= useState(0);
+
+  const [difficulty, setDifficulty] = useState(lesson.difficultyLevel || 1);
+
+  const [mode, setMode]= useState("Standard");
+
+  const [score, setScore]= useState(0);
+
+  const [percentage, setPercentage] = useState(0);
   const [watchCount, setWatchCount]
     = useState(0);
 
@@ -127,6 +136,11 @@ function LessonCard({ lesson }) {
     const progressId =
       `${user.uid}_${lesson.id}`;
 
+    console.log("Lesson ID:", lesson.id);
+    console.log("Progress ID:", progressId);
+    console.log("User:", user.uid);
+
+
     const progressRef = doc(
       db,
       "progress",
@@ -135,6 +149,7 @@ function LessonCard({ lesson }) {
 
     const progressSnap =
       await getDoc(progressRef);
+      console.log("Document exists:", progressSnap.exists());
 
     if (progressSnap.exists()) {
 
@@ -156,6 +171,8 @@ function LessonCard({ lesson }) {
       setScore(
         data.score || 0
       );
+
+      setPercentage(data.percentage || 0);
     }
   };
 
@@ -318,6 +335,14 @@ function LessonCard({ lesson }) {
           {" "}
           {score}
         </p>
+
+                  <p>
+            Correct Answers: {score}
+          </p>
+
+          <p>
+            Percentage: {percentage}%
+          </p>
 
       </div>
 

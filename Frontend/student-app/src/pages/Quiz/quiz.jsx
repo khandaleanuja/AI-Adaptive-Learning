@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
 import "./Quiz.css";
+import { useParams } from "react-router-dom";
+
+
+function Quiz() {
+  const { lessonId } = useParams();
+  console.log("Lesson ID from URL:", lessonId);
+
 
 function Quiz() {
 
@@ -205,6 +212,22 @@ function Quiz() {
   };
 
 
+    const saveScore = async () => {
+
+      const user = JSON.parse(localStorage.getItem("user"));
+
+       if (!user?.uid) {
+        alert("User not found");
+        return;
+      }
+
+      const payload = {
+        userId: user.uid,
+        lessonId: lessonId,
+        score: finalScore,
+        percentage: finalPercentage,
+        responseTime: 4,
+        videoWatchCount: 1
       const saveScore = async () => {
 
       const percentage = finalPercentage;
