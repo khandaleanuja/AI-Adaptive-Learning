@@ -91,14 +91,6 @@ import { db } from "../../firebase";
 
 function LessonCard({ lesson }) {
 
-  const [watchCount, setWatchCount]= useState(0);
-
-  const [difficulty, setDifficulty] = useState(lesson.difficultyLevel || 1);
-
-  const [mode, setMode]= useState("Standard");
-
-  const [score, setScore]= useState(0);
-
   const [percentage, setPercentage] = useState(0);
   const [watchCount, setWatchCount]
     = useState(0);
