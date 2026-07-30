@@ -2,13 +2,10 @@ import { useState, useEffect } from "react";
 import "./Quiz.css";
 import { useParams } from "react-router-dom";
 
-
 function Quiz() {
+
   const { lessonId } = useParams();
-  console.log("Lesson ID from URL:", lessonId);
-
-
-function Quiz() {
+console.log("Lesson ID from URL:", lessonId);
 
   const questions = [
     {
@@ -222,66 +219,42 @@ function Quiz() {
 
     const saveScore = async () => {
 
-      const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
-       if (!user?.uid) {
-        alert("User not found");
-        return;
+  if (!user?.uid) {
+    alert("User not found");
+    return;
+  }
+
+  const payload = {
+    userId: user.uid,
+    lessonId: lessonId,
+    score: finalScore,
+    percentage: finalPercentage,
+    responseTime: 4,
+    videoWatchCount: 1
+  };
+
+  console.log("Sending:", payload);
+
+  try {
+
+    const response = await fetch(
+      "http://localhost:5000/progress/save",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
       }
-
-      const payload = {
-        userId: user.uid,
-        lessonId: lessonId,
-        score: finalScore,
-        percentage: finalPercentage,
-        responseTime: 4,
-        videoWatchCount: 1
-      const saveScore = async () => {
-
-      const percentage = finalPercentage;
-
-      const payload = {
-
-        userId:
-          localStorage.getItem("userId"),
-
-        lessonId: "lesson1",
-
-        score: finalScore,
-        
-        percentage: Math.round(
-        (finalScore / questions.length) * 100
-      ),
-
-
-        responseTime: 4,
-
-        videoWatchCount: 1
-
-      };
-
-      console.log("Sending:", payload);
-
-       try {
-
-          const response = await fetch(
-            "http://localhost:5000/progress/save",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify(payload)
-            }
-          );
+    );
 
     const data = await response.json();
 
     console.log("Backend Response:", data);
 
-    setFirebaseScore(
-      data.savedData.percentage
-    );
+    setFirebaseScore(data.savedData.percentage);
 
     alert("Score saved successfully!");
 
@@ -291,8 +264,7 @@ function Quiz() {
 
     alert("Error saving score");
   }
-    };
-
+};
 
     const fetchScore = async () => {
   try {
@@ -319,7 +291,7 @@ function Quiz() {
   } catch (error) {
     console.log("Fetch error:", error);
   }
-};
+}
 
 
   if (showResult) {
