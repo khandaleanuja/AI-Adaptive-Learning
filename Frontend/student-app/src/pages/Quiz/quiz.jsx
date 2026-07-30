@@ -48,6 +48,14 @@ function Quiz() {
   const [finalPercentage, setFinalPercentage] =
   useState(0);
 
+  const [firebaseScore, setFirebaseScore] = useState(null);
+
+  useEffect(() => {
+  if (showResult) {
+    fetchScore();
+  }
+}, [showResult]);
+
   // Speak Question + Options
   useEffect(() => {
 
@@ -254,40 +262,64 @@ function Quiz() {
 
       console.log("Sending:", payload);
 
-      try {
+       try {
 
-        const response = await fetch(
-          "http://localhost:5000/progress/save",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
-            body: JSON.stringify(payload)
-          }
-        );
+          const response = await fetch(
+            "http://localhost:5000/progress/save",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(payload)
+            }
+          );
 
-        const data =
-          await response.json();
+    const data = await response.json();
 
-        console.log(data);
+    console.log("Backend Response:", data);
 
-        alert(
-          "Score saved successfully!"
-        );
+    setFirebaseScore(
+      data.savedData.percentage
+    );
 
-      } catch(error) {
+    alert("Score saved successfully!");
 
-        console.log(error);
+  } catch (error) {
 
-        alert(
-          "Error saving score"
-        );
-      }
+    console.log(error);
+
+    alert("Error saving score");
+  }
     };
 
 
+    const fetchScore = async () => {
+  try {
+    const userId = localStorage.getItem("userId");
+    const lessonId = "lesson1";
+
+    const response = await fetch(
+      `http://localhost:5000/progress/get?userId=${userId}&lessonId=${lessonId}`
+    );
+
+    const data = await response.json();
+
+    console.log("Fetched Score:", data);
+
+    // filter by lessonId (because backend returns ALL lessons)
+    const lessonData = data.find(
+      (item) => item.lessonId === lessonId
+    );
+
+    if (lessonData) {
+      setFirebaseScore(lessonData.percentage);
+    }
+
+  } catch (error) {
+    console.log("Fetch error:", error);
+  }
+};
 
 
   if (showResult) {
@@ -308,7 +340,12 @@ function Quiz() {
           </h1>
 
           <h2>
-            Score : {finalPercentage}
+            Score :
+            {
+              firebaseScore !== null
+                ? firebaseScore
+                : finalPercentage
+            }%
           </h2>
 
           <h2>

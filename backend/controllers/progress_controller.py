@@ -120,12 +120,10 @@ def save_progress():
 
         progress_id = f"{user_id}_{lesson_id}"
 
-        doc_ref = db.collection("progress").document(
-            progress_id
-        )
+        progress_id = f"{user_id}_{lesson_id}"
 
+        doc_ref = db.collection("progress").document(progress_id)
         doc_ref.set(progress_data)
-        
 
         print("Firestore Saved")
         print("Document ID:", progress_id)
@@ -163,32 +161,49 @@ def save_progress():
         }), 500
     
 
-def get_progress(user_id):
+# def get_progress(user_id):
+#     print("Fetching for User:", user_id)
 
-    try:
+#     try:
 
-        docs = db.collection(
-            "progress"
-        ).where(
-            "userId",
-            "==",
-            user_id
-        ).stream()
+#         docs = db.collection("progress") \
+#     .where("userId", "==", user_id) \
+#     .order_by("completedAt") \
+#     .stream()
 
-        progress_list = []
+#         progress_list = []
 
-        for doc in docs:
+#         for doc in docs:
 
-            item = doc.to_dict()
+#             item = doc.to_dict()
 
-            item["id"] = doc.id
+#             item["id"] = doc.id
 
-            progress_list.append(item)
+#             progress_list.append(item)
 
-        return jsonify(progress_list)
 
-    except Exception as e:
+#         print("Fetched Data:", progress_list)
 
-        return jsonify({
-            "error": str(e)
-        }), 500
+#         return jsonify(progress_list)
+
+#     except Exception as e:
+
+#         print("ERROR:", str(e))
+
+#         return jsonify({
+#             "error": str(e)
+#         }), 500
+
+
+def get_progress(user_id, lesson_id=None):
+    query = db.collection("progress").where("userId", "==", user_id)
+
+    if lesson_id:
+        query = query.where("lessonId", "==", lesson_id)
+
+    docs = query.stream()
+
+    for doc in docs:
+        return jsonify(doc.to_dict())
+
+    return jsonify({})
